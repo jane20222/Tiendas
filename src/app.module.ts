@@ -6,8 +6,7 @@ import { VentasModule } from './ventas/ventas.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports:
-  [
+  imports: [
   MongooseModule.forRoot ('mongodb://mongo:clave123@localhost:27027/TIENDA'),
    ProductosModule, VentasModule],
 

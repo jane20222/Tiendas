@@ -1,0 +1,20 @@
+Tabla de Productos:
+ID_Producto (PK)
+Nombre
+Descripción
+Precio_Unitario
+Stock
+Tabla de Vendedores:
+
+ID_Vendedor (PK)
+Nombre
+Correo_Electrónico
+Otros_Detalles
+Tabla de Ventas:
+
+ID_Venta (PK)
+ID_Producto (clave foránea referenciando la tabla de Productos)
+ID_Vendedor (clave foránea referenciando la tabla de Vendedores)
+Cantidad
+Precio_Unitario
+Fecha_Venta
