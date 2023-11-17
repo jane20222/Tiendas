@@ -1,6 +1,6 @@
 import { Schema } from "@nestjs/mongoose";
 
-@Schema ({collection:"ventas"})
+@Schema ({collection:"venta"})
 export class Venta {
 
 }
