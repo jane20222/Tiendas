@@ -1,1 +1,5 @@
-export class Venta {}
+
+
+export class Venta {
+
+}
