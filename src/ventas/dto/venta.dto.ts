@@ -1,13 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { ProductoDto } from "src/productos/dto/producto.dto";
 
 
-export class CreateVentaDto {
+export class VentaDto {
     
 @ApiProperty ({ example: '12345678-9'  })
 id_venta:string;
 
 @ApiProperty ({ example: 'Macbook pro 16 pulgada'  })
-id_Producto :string;
+ID_Producto :string;
 
 @ApiProperty ({ example: '2'  })
 Cantidad:string;
@@ -20,7 +21,8 @@ Fecha_Venta:string;
 
 @ApiProperty ({ example: ' '  })
 vendedor:string;
+  
 
-
- 
+@ApiProperty({ type: [ProductoDto] })
+  productos: ProductoDto[];
 }

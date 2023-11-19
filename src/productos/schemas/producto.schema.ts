@@ -1,4 +1,4 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 @Schema ({collection:"producto"})
 export class producto{
@@ -30,3 +30,5 @@ export class producto{
     ventas:string[];
 
 }
+
+export const productoSchema = SchemaFactory.createForClass(producto);

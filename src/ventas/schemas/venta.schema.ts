@@ -7,7 +7,7 @@ import { StringDecoder } from "string_decoder";
 export class Venta {
 
     @Prop({name:"id_venta"})
-    ID_venta :string;
+    id_venta :string;
 
     @Prop({ name: "id_productos", type: [{ type: Types.ObjectId, ref: "id_producto" }] })
     id_productos: Types.ObjectId[];
@@ -21,14 +21,16 @@ export class Venta {
     @Prop({name:"fecha_venta"})
     Fecha_Venta:string;
 
-    @Prop ({name:"vendedor", raw:{
+    @Prop ({name:"vendedor",type:Object, raw:{
         nombre:{type:String},
         telefono: {type:String},
         correo:{type:String},
         direccion:{type:String},
     }})
     Ventas:Record<string,string>;
+  static id_venta: string;
+  
   
 }
 
-export const VentasSchema = SchemaFactory.createForClass(Venta);
+export const VentaSchema = SchemaFactory.createForClass(Venta);
