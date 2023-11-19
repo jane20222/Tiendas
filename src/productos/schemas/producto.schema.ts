@@ -3,11 +3,14 @@ import { Prop, Schema } from "@nestjs/mongoose";
 @Schema ({collection:"producto"})
 export class producto{
 
-    @Prop({name:"id_producto"})
-    ID_Producto:string;
-    
+    @Prop ({name:"id_producto"})
+    id_producto:string;
+   
     @Prop({name:"nombre"})
     Nombre:string;
+
+    @Prop ({name:"categoria"})
+    categoria:string;
     
     @Prop({name:"descripcion"})
     Descripcion:string;
@@ -24,5 +27,6 @@ export class producto{
     @Prop ({name:"stock"})
     Stock:string;
     
+    ventas:string[];
 
 }

@@ -1,14 +1,17 @@
 Tabla de Productos:
-ID_Producto (PK)
+ID_Producto
 Nombre
+categoria
 Descripción
 Precio_Unitario
+fecha_venta
 Stock
 
 
 tabla de ventas:
-ID_Venta (PK)
+ID_ventas
 ID_Producto (clave foránea referenciando la tabla de Productos)
 Cantidad
 Precio_Unitario
 Fecha_Venta
+vendedor
