@@ -17,6 +17,12 @@ export class VentasService {
   
   async create(createVentaDto: CreateVentaDto): Promise <VentaDto>{
     const ventaPorCrear:Venta = new Venta();
+    ventaPorCrear.id_venta = createVentaDto.id_venta;
+    ventaPorCrear.id_producto = createVentaDto.id_producto;
+    ventaPorCrear.cantidad= createVentaDto.cantidad;
+    ventaPorCrear.precio_Unitario= createVentaDto.precio_Unitario;
+    ventaPorCrear.fecha_Venta=createVentaDto.fecha_Venta;
+    ventaPorCrear.vendedor=createVentaDto.vendedor;
     const resultado =await this.ventaModel.create(ventaPorCrear);
     console.log(resultado);
     return null;

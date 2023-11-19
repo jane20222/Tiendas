@@ -10,13 +10,13 @@ export class UpdateVentaDto  {
         id_Producto :string;
         
         @ApiProperty ({ example: '2'  })
-        Cantidad:string;
+        cantidad:string;
         
         @ApiProperty ({ example: '3.600.000'  })
-        Precio_Unitario:string;
+        precio_Unitario:string;
         
         @ApiProperty ({ example: '18-11-2023'  })
-        Fecha_Venta:string;
+        fecha_Venta:string;
         
         @ApiProperty ({ example: ' '  })
         vendedor:string;

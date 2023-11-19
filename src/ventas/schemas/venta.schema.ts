@@ -29,6 +29,11 @@ export class Venta {
     }})
     Ventas:Record<string,string>;
   static id_venta: string;
+  id_producto: string;
+  cantidad: string;
+  precio_Unitario: any;
+  fecha_Venta: string;
+  vendedor: string;
   
   
 }
