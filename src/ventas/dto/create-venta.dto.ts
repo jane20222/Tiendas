@@ -3,10 +3,10 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateVentaDto {
     
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: 'V123456789'  })
 id_venta:string;
 
-@ApiProperty ({ example: 'Macbook pro 16 pulgada'  })
+@ApiProperty ({ example: 'MP-001'  })
 id_Producto :string;
 
 @ApiProperty ({ example: '2'  })
@@ -18,7 +18,7 @@ precio_Unitario:string;
 @ApiProperty ({ example: '18-11-2023'  })
 fecha_Venta:string;
 
-@ApiProperty ({ example: ' '  })
+@ApiProperty ({ example: 'John Dodi  '  })
 vendedor:string;
   id_producto: string;
 
