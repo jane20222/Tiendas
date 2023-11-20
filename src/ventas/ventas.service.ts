@@ -23,10 +23,15 @@ export class VentasService {
     ventaPorCrear.precio_Unitario= createVentaDto.precio_Unitario;
     ventaPorCrear.fecha_Venta=createVentaDto.fecha_Venta;
     ventaPorCrear.vendedor=createVentaDto.vendedor;
-    
-    const resultado =await this.ventaModel.create(ventaPorCrear);
-    console.log(resultado);
-    return null;
+    const resultado: Venta =await this.ventaModel.create(ventaPorCrear);
+    const ventaCreado: VentaDto = new VentaDto();
+    ventaCreado.id_venta = resultado ["id_venta"] .toString();
+    ventaCreado.id_Producto = resultado ["id_producto"].toString();
+    ventaCreado.cantidad= createVentaDto.cantidad;
+    ventaCreado.precio_Unitario=createVentaDto.precio_Unitario;
+    ventaCreado.fecha_Venta=createVentaDto.fecha_Venta;
+    ventaCreado.vendedor=createVentaDto.vendedor;
+    return ventaCreado;
   }
 
   findAll() {
