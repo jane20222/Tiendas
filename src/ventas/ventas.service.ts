@@ -23,6 +23,7 @@ export class VentasService {
     ventaPorCrear.precio_Unitario= createVentaDto.precio_Unitario;
     ventaPorCrear.fecha_Venta=createVentaDto.fecha_Venta;
     ventaPorCrear.vendedor=createVentaDto.vendedor;
+    
     const resultado =await this.ventaModel.create(ventaPorCrear);
     console.log(resultado);
     return null;
