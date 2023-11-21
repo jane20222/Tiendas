@@ -15,13 +15,15 @@ export class VentasController {
   }
 
   @Get()
-  findAll() {
-    return this.ventasService.findAll();
+  async findAll(): Promise <VentaDto[]> {
+    const  resultado: VentaDto []=  await this.ventasService.findAll();
+    return resultado;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ventasService.findOne(+id);
+  async findOne(@Param('id') id: string) : Promise <VentaDto>{
+    const resultado : VentaDto = await this.ventasService.findOne(id);
+    return resultado;
   }
 
   @Patch(':id')
