@@ -14,7 +14,7 @@ Nombre:string;
 categoria:string;
 
 @ApiProperty ({ example: 'notebook'  })
-Descripción:string;
+Descripcion:string;
 
 @ApiProperty ({ example: '$1.899.990'  })
 Precio_Unitario:string;
@@ -24,6 +24,7 @@ fecha_venta:string;
 
 @ApiProperty ({ example: '20'  })
 Stock:string;
+ 
 
 
 }
@@ -41,7 +42,7 @@ Stock:string;
     categoria:string;
     
     @ApiProperty ({ example: 'Smartphone'  })
-    Descripción:string;
+    Descripcion:string;
     
     @ApiProperty ({ example: '$1.999.990'  })
     Precio_Unitario:string;
@@ -68,7 +69,7 @@ Stock:string;
         categoria: string;
         
         @ApiProperty({ example: 'Camara' })
-        Descripción: string;
+        Descripcion: string;
         
         @ApiProperty({ example: '$3.627.990' })
         Precio_Unitario: string;
@@ -94,7 +95,7 @@ Stock:string;
             categoria: string;
             
             @ApiProperty({ example: 'consola de videojuegos' })
-            Descripción: string;
+            Descripcion: string;
             
             @ApiProperty({ example: '$333.990' })
             Precio_Unitario: string;

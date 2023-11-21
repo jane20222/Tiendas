@@ -2,7 +2,7 @@ Tabla de Productos:
 ID_Producto
 Nombre
 categoria
-Descripción
+Descripcion
 Precio_Unitario
 fecha_venta
 Stock

@@ -13,7 +13,7 @@ export class ProductoDto {
     @ApiProperty ({ example: '12345678-9'  })
     categoria:string;
     @ApiProperty ({ example: '12345678-9'  })
-    Descripción:string;
+    Descripcion:string;
     
     @ApiProperty ({ example: '12345678-9'  })
     Precio_Unitario:string;
@@ -27,5 +27,6 @@ export class ProductoDto {
 
     @ApiProperty({ type: [VentaDto] })
     productos: VentaDto[];
+ 
     }
     
