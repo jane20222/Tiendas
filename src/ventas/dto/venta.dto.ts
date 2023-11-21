@@ -19,7 +19,7 @@ precio_Unitario:string;
 @ApiProperty ({ example: '18-11-2023'  })
 fecha_Venta:string;
 
-@ApiProperty ({ example: ' '  })
+@ApiProperty ({ example: ' Lucas yañez lizana'  })
 vendedor:string;
   
 
