@@ -26,11 +26,23 @@ export class VentasController {
     return resultado;
   }
 
+  @Patch(':id/retirar-Producto/:productoId')
+  async retirarProducto(@Param('id') id: string, @Param('productoId') productoId :string) : Promise <VentaDto> {
+    const resultado:VentaDto = await this.ventasService.retirarProducto(id, productoId);
+    return resultado;
+  }
+
+  @Patch(':id/devolver-Producto/:productoId')
+  async devolverProducto(@Param('id') id: string, @Param('productoId') productoId :string) : Promise <VentaDto> {
+    const resultado:VentaDto = await this.ventasService.devolverProducto(id, productoId);
+    return resultado;
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVentaDto: UpdateVentaDto) {
     return this.ventasService.update(+id, updateVentaDto);
   }
-
+  
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ventasService.remove(+id);

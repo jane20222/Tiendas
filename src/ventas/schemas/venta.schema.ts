@@ -34,6 +34,7 @@ export class Venta {
   precio_Unitario: any;
   fecha_Venta: string;
   vendedor: string;
+  productos: any;
   
   
 }

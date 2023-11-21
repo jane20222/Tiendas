@@ -6,9 +6,12 @@ import { Venta } from './schemas/venta.schema';
 import { Model } from 'mongoose';
 import { VentaDto } from './dto/venta.dto';
 import { ObjectId } from 'mongodb';
+import { VentaMapper } from './mapper/venta.mapper';
 
 @Injectable()
 export class VentasService {
+  
+
 
   constructor(
    @InjectModel(Venta.name) 
@@ -17,36 +20,28 @@ export class VentasService {
 
   
   async create(createVentaDto: CreateVentaDto): Promise <VentaDto>{
-    const ventaPorCrear:Venta = new Venta();
+    const ventaPorCrear:Venta = VentaMapper.toSchema(createVentaDto);
     ventaPorCrear.id_venta = createVentaDto.id_venta;
     ventaPorCrear.id_producto = createVentaDto.id_producto;
     ventaPorCrear.cantidad= createVentaDto.cantidad;
     ventaPorCrear.precio_Unitario= createVentaDto.precio_Unitario;
     ventaPorCrear.fecha_Venta=createVentaDto.fecha_Venta;
-    ventaPorCrear.vendedor=createVentaDto.vendedor;
+    ventaPorCrear.vendedor=createVentaDto.vendedor; 
     const resultado: Venta =await this.ventaModel.create(ventaPorCrear);
-    const ventaCreado: VentaDto = new VentaDto();
+    const ventaCreado: VentaDto = VentaMapper.toDto(resultado);
     ventaCreado.id_venta = resultado ["id_venta"] .toString();
     ventaCreado.id_Producto = resultado ["id_producto"].toString();
-    ventaCreado.cantidad= createVentaDto.cantidad;
-    ventaCreado.precio_Unitario=createVentaDto.precio_Unitario;
-    ventaCreado.fecha_Venta=createVentaDto.fecha_Venta;
-    ventaCreado.vendedor=createVentaDto.vendedor;
-    return ventaCreado;
+    ventaCreado.cantidad= resultado.cantidad;
+    ventaCreado.precio_Unitario=resultado.precio_Unitario;
+    ventaCreado.fecha_Venta=resultado.fecha_Venta;
+    ventaCreado.vendedor=resultado.vendedor;
+    return  ventaCreado;
   }
 
   async findAll(): Promise<VentaDto[]>{
     const ventas:Venta[]= await this.ventaModel.find();
-    const dtos: VentaDto[]=ventas.map ((venta) => {
-      const dto :VentaDto = new VentaDto();
-      dto.id_venta =venta["id_venta"].toString();
-      dto.id_Producto =venta["id_producto"].toString();
-      dto.cantidad=venta.cantidad;
-      dto.precio_Unitario=venta.precio_Unitario;
-      dto.fecha_Venta= venta.fecha_Venta;
-      dto.vendedor =venta.vendedor;
-      return dto;
-    });
+    const dtos: VentaDto[]=VentaMapper.toDtoList(ventas) 
+
     return dtos;
   }
 
@@ -55,29 +50,62 @@ export class VentasService {
     const venta: Venta | null = await this.ventaModel.findOne({ _id: objectId });
   
     if (!venta) {
-      // Manejo del caso en que no se encuentre ninguna venta con el ID dado
-      // Puedes lanzar una excepción, devolver un valor por defecto o manejarlo de acuerdo a tus necesidades
-      throw new Error(`No se encontró ninguna venta con el ID: ${id}`);
+
+      return null; // o un objeto que indique que no se encontró la venta
     }
   
-    const dto: VentaDto = new VentaDto();
-    dto.id_venta = venta.id_venta.toString();
-    dto.id_Producto = venta.id_producto.toString();
-    dto.cantidad = venta.cantidad;
-    dto.precio_Unitario = venta.precio_Unitario;
-    dto.fecha_Venta = venta.fecha_Venta;
-    dto.vendedor = venta.vendedor;
   
-    return dto;
+    return VentaMapper.toDto (venta);
   }
 
-  
+ async retirarProducto(id: string, productoId: string): Promise<VentaDto> {
+  const objectId: ObjectId = new ObjectId(id);
+  const venta: Venta = await this.ventaModel.findOne({ _id: objectId}); 
+  const productosActuales= venta.productos as ObjectId[];
+  productosActuales.push(new ObjectId(productoId));
 
-  update(id: number, updateVentaDto: UpdateVentaDto) {
-    return `This action updates a #${id} venta`;
-  }
+  //flujo con update one
+  this.ventaModel.updateOne({ _id: objectId }, { productos: productosActuales});
+
+  //flujo con  replace one
+
+  // venta.productos = productosActuales;
+   //await this.ventaModel.replaceOne({ _id: objectId }, venta);
+
+   const ventaActualizado:Venta =await this.ventaModel.findOne({ _id: objectId});
+   return VentaMapper.toDto(ventaActualizado);
+}
+
+async devolverProducto(id: string, productoId: string): Promise<VentaDto> {
+  const objectId: ObjectId = new ObjectId(id);
+  const venta: Venta  = await this.ventaModel.findOne({ _id: objectId}); 
+  const productosAnteriores= venta.productos as ObjectId[];
+  const productosActuales =productosAnteriores.filter((producto) => {
+    return producto.toString ()!== productoId;
+  });
+
+  
+  //flujo con update one
+  await this.ventaModel.updateOne({ _id: objectId }, { productos: productosActuales });
+
+  //flujo con  replace one
+
+  // venta.productos = productosActuales;
+   //await this.ventaModel.replaceOne({ _id: objectId }, venta);
+
+   const ventaActualizado:Venta =await this.ventaModel.findOne({ _id: objectId});
+   return VentaMapper.toDto(ventaActualizado);
+}
+
+
+update(id: number, updateVentaDto: UpdateVentaDto) {
+  return `This action updates a #${id} venta`;
+}
 
   remove(id: number) {
     return `This action removes a #${id} venta`;
   }
 }
+
+
+

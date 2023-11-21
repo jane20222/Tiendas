@@ -4,7 +4,7 @@ import { ProductoDto } from "src/productos/dto/producto.dto";
 
 export class VentaDto {
     
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: 'P654513'  })
 id_venta:string;
 
 @ApiProperty ({ example: 'Macbook pro 16 pulgada'  })
@@ -23,6 +23,12 @@ fecha_Venta:string;
 vendedor:string;
   
 
-@ApiProperty({ type: [ProductoDto] })
-  productos: ProductoDto[];
+@ApiProperty ()
+idproducto:string[];
+
+@ApiProperty ()
+productos:ProductoDto[];
+  
+
+
 }
