@@ -4,24 +4,24 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateProductoDto  {
 
-@ApiProperty ({ example: ''  })
+@ApiProperty ({ example: 'apple' })
 id_Producto:string;
 
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: 'apple tablet'  })
 Nombre:string;
 
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: 'ipad'  })
 categoria:string;
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: 'tablet 10"'  })
 Descripción:string;
 
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: '799.000'  })
 Precio_Unitario:string;
 
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: '12-02-2022'  })
 fecha_venta:string;
 
-@ApiProperty ({ example: '12345678-9'  })
+@ApiProperty ({ example: '15'  })
 Stock:string;
 
 }
