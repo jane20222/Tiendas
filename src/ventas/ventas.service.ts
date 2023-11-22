@@ -76,7 +76,7 @@ export class VentasService {
    return VentaMapper.toDto(ventaActualizado);
 }
 
-async devolverProducto(id: string, productoId: string): Promise<VentaDto> {
+async devolucionProducto(id: string, productoId: string): Promise<VentaDto> {
   const objectId: ObjectId = new ObjectId(id);
   const venta: Venta  = await this.ventaModel.findOne({ _id: objectId}); 
   const productosAnteriores= venta.productos as ObjectId[];
@@ -97,6 +97,42 @@ async devolverProducto(id: string, productoId: string): Promise<VentaDto> {
    return VentaMapper.toDto(ventaActualizado);
 }
 
+async despachoProducto(id: string, productoId: string): Promise<VentaDto> {
+  try {
+    const objectId: ObjectId = new ObjectId(id);
+
+    // Buscar la venta actual
+    const venta: Venta = await this.ventaModel.findOne({ _id: objectId });
+
+    if (!venta) {
+      // Manejar el caso en que no se encuentra la venta
+      throw new Error('Venta no encontrada');
+    }
+
+    // Filtrar productos actuales
+    const productosAnteriores = venta.productos as ObjectId[];
+    const productosActuales = productosAnteriores.filter((producto) => {
+      return producto.toString() !== productoId;
+    });
+
+    // Actualizar la venta usando updateOne
+    await this.ventaModel.updateOne({ _id: objectId }, { productos: productosActuales });
+
+    // Puedes usar replaceOne si prefieres esta forma de actualización
+    // venta.productos = productosActuales;
+    // await this.ventaModel.replaceOne({ _id: objectId }, venta);
+
+    // Buscar la venta actualizada
+    const ventaActualizado: Venta = await this.ventaModel.findOne({ _id: objectId });
+
+    // Convertir la venta actualizada a DTO y devolverla
+    return VentaMapper.toDto(ventaActualizado);
+  } catch (error) {
+    // Manejar errores aquí
+    console.error('Error en despachoProducto:', error);
+    throw error; // Puedes personalizar este manejo de errores según tus necesidades
+  }
+}
 
 update(id: number, updateVentaDto: UpdateVentaDto) {
   return `This action updates a #${id} venta`;

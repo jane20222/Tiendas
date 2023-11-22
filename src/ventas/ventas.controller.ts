@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, InternalServerErrorException } from '@nestjs/common';
 import { VentasService } from './ventas.service';
 import { CreateVentaDto } from './dto/create-venta.dto';
 import { UpdateVentaDto } from './dto/update-venta.dto';
@@ -32,11 +32,27 @@ export class VentasController {
     return resultado;
   }
 
-  @Patch(':id/devolver-Producto/:productoId')
-  async devolverProducto(@Param('id') id: string, @Param('productoId') productoId :string) : Promise <VentaDto> {
-    const resultado:VentaDto = await this.ventasService.devolverProducto(id, productoId);
+  @Patch(':id/devolucion-Producto/:productoId')
+  async devolucionProducto(@Param('id') id: string, @Param('productoId') productoId :string) : Promise <VentaDto> {
+    const resultado:VentaDto = await this.ventasService.devolucionProducto(id, productoId);
     return resultado;
   }
+  @Patch(':id/despacho-producto/:productoId')
+  async despachoProducto(
+    @Param('id') id: string,
+    @Param('productoId') productoId: string,
+  ): Promise<VentaDto> {
+    try {
+      const resultado: VentaDto = await this.ventasService.despachoProducto(id, productoId);
+      return resultado;
+    } catch (error) {
+      // Puedes manejar el error de manera específica si es necesario
+      console.error('Error en despachoProducto controller:', error);
+      throw new InternalServerErrorException('Error en despachoProducto', error.message);
+    }
+  }
+  
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVentaDto: UpdateVentaDto) {
